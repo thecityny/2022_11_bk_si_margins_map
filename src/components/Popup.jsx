@@ -4,7 +4,7 @@ const formatNtaName = (nta) => nta.replace("-", " / ");
 const formatElectionDistrict = (ed) =>
   ed.toString().slice(0, 2) + "/" + ed.toString().slice(2, 5);
 
-export const MapPopup = ({ hoverInfo, isTurnoutMap }) => {
+export const MapPopup = ({ hoverInfo }) => {
   const { latitude, longitude, districtData } = hoverInfo;
   const totalVotes = districtData.dem + districtData.rep + districtData.other;
   return (
@@ -29,63 +29,6 @@ export const MapPopup = ({ hoverInfo, isTurnoutMap }) => {
                   ? `Only 1 person voted here.`
                   : `Only ${totalVotes} people voted here.`}
               </p>
-            </>
-          ) : isTurnoutMap ? (
-            <>
-              <h3>
-                Election District: {formatElectionDistrict(districtData.ed)}
-              </h3>
-              <p>
-                2022 Turnout:{" "}
-                {districtData.t22
-                  ? Math.abs(Math.round(districtData.t22 * 10) / 10)
-                  : "0"}
-                %
-              </p>
-              <br />
-
-              <p>
-                <b>Neighborhood:</b> {formatNtaName(districtData.nta)}
-              </p>
-              <table className="results">
-                <thead>
-                  <tr>
-                    <th>Year</th>
-                    <th className="number">Turnout</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td>2018</td>
-                    <td className="number">
-                      {districtData.nta18
-                        ? Math.round(districtData.nta18 * 10) / 10
-                        : "0"}
-                      %
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>2022</td>
-                    <td className="number">
-                      {districtData.nta22
-                        ? Math.round(districtData.nta22 * 10) / 10
-                        : "0"}
-                      %
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>Change</td>
-                    <td className="number">
-                      {districtData.nta18 && districtData.nta22
-                        ? Math.round(
-                            (districtData.nta22 - districtData.nta18) * 10
-                          ) / 10
-                        : "0"}
-                      %
-                    </td>
-                  </tr>
-                </tbody>
-              </table>
             </>
           ) : (
             <>

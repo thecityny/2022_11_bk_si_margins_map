@@ -1,23 +1,22 @@
-export const Legend = ({ isTurnoutMap }) => (
+export const Legend = ({ is2018Map }) => (
   <div className="map-overlay mixed">
-    <p className="slider-legend-title">
-      {isTurnoutMap ? "Voter Turnout" : "Percentage Point Margin"}
-    </p>
-    {isTurnoutMap ? (
-      <br />
+    <p className="slider-legend-title">Percentage Point Margin</p>
+
+    {is2018Map ? (
+      <div className="slider-legend-labels">
+        <p className="label-left">Molinaro</p>
+        <p className="label-right">Cuomo</p>
+      </div>
     ) : (
       <div className="slider-legend-labels">
         <p className="label-left">Zeldin</p>
         <p className="label-right">Hochul</p>
       </div>
     )}
+
     <div className="slider-legend chart-key-mixed">
       <svg width="160" height="35">
         <defs>
-          <linearGradient id="Gradient1">
-            <stop offset="10%" stopColor="#fafaf8" />
-            <stop offset="90%" stopColor="#000" />
-          </linearGradient>
           <linearGradient id="Gradient2">
             <stop offset="0%" stopColor="#d02d3c" />
             <stop offset="50%" stopColor="#FFF" />
@@ -29,7 +28,7 @@ export const Legend = ({ isTurnoutMap }) => (
           x="15"
           width="130"
           height="15"
-          fill={`url(#Gradient${isTurnoutMap ? "1" : "2"})`}
+          fill={`url(#Gradient2)`}
         />
         <g
           transform="translate(0,15)"
@@ -46,21 +45,21 @@ export const Legend = ({ isTurnoutMap }) => (
           <g className="tick" opacity="1" transform="translate(15,0)">
             <line stroke="currentColor" y2="6" y1="-15"></line>
             <text fill="currentColor" y="9" dy="0.71em">
-              {isTurnoutMap ? "0%" : "100"}
+              100%
             </text>
           </g>
-          {!isTurnoutMap && (
-            <g className="tick" opacity="1" transform="translate(80,0)">
-              <line stroke="currentColor" y2="6" y1="-15"></line>
-              <text fill="currentColor" y="9" dy="0.71em">
-                0
-              </text>
-            </g>
-          )}
+
+          <g className="tick" opacity="1" transform="translate(80,0)">
+            <line stroke="currentColor" y2="6" y1="-15"></line>
+            <text fill="currentColor" y="9" dy="0.71em">
+              0
+            </text>
+          </g>
+
           <g className="tick" opacity="1" transform="translate(145,0)">
             <line stroke="currentColor" y2="6" y1="-15"></line>
             <text fill="currentColor" y="9" dy="0.71em">
-              {isTurnoutMap ? "60%+" : "100"}
+              100%
             </text>
           </g>
         </g>

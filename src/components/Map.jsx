@@ -59,49 +59,35 @@ const transformStyleRequest = (url, resourceType) => {
   return { url };
 };
 
-const getLayerStyle = (isTurnoutMap) => {
-  const breaks = isTurnoutMap ? [0, 30, 60] : [-100, -50, 0, 50, 100];
-  const mixedColorScheme = isTurnoutMap
-    ? ["#fafaf8", "#969696", "#000000"]
-    : ["#d02d3c", "#e99498", "#f7f7f7", "#91a5d3", "#214da5"];
+const getLayerStyle = () => {
+  const breaks = [-100, -50, 0, 50, 100];
+  const mixedColorScheme = [
+    "#d02d3c",
+    "#e99498",
+    "#f7f7f7",
+    "#91a5d3",
+    "#214da5",
+  ];
   const mixedColors = mixedColorScheme.map((v, i, a) => [breaks[i], v]);
   return {
     id: "eds",
     type: "fill",
     paint: {
-      "fill-color": isTurnoutMap
-        ? [
-            "case",
-            [
-              "to-boolean",
-              [
-                ">=",
-                ["+", ["+", ["get", "dem"], ["get", "rep"]], ["get", "other"]],
-                10,
-              ],
-            ],
-            ["interpolate", ["linear"], ["to-number", ["get", "t22"]]].concat(
-              ...mixedColors
-            ),
-            "#fafaf8",
-          ]
-        : [
-            "case",
-            [
-              "to-boolean",
-              [
-                ">=",
-                ["+", ["+", ["get", "dem"], ["get", "rep"]], ["get", "other"]],
-                10,
-              ],
-            ],
-            [
-              "interpolate",
-              ["linear"],
-              ["to-number", ["get", "margin"]],
-            ].concat(...mixedColors),
-            "#e1e1e1",
+      "fill-color": [
+        "case",
+        [
+          "to-boolean",
+          [
+            ">=",
+            ["+", ["+", ["get", "dem"], ["get", "rep"]], ["get", "other"]],
+            10,
           ],
+        ],
+        ["interpolate", ["linear"], ["to-number", ["get", "margin"]]].concat(
+          ...mixedColors
+        ),
+        "#e1e1e1",
+      ],
       "fill-opacity": [
         "interpolate",
         ["linear"],
@@ -117,13 +103,13 @@ const getLayerStyle = (isTurnoutMap) => {
   };
 };
 
-const getHoverStyle = (isTurnoutMap) => ({
+const getHoverStyle = () => ({
   id: "eds-highlighted",
   type: "line",
   source: "eds",
   paint: {
     "line-width": 1.5,
-    "line-color": isTurnoutMap ? "#fcc32c" : "#000",
+    "line-color": "#000",
   },
 });
 
@@ -131,7 +117,7 @@ const MarginsMap = () => {
   /**
    * Which map type are we showing? Margins map or voter turnout map?
    */
-  const [isTurnoutMap, setIsTurnoutMap] = React.useState(true);
+  const [is2018Map, setIs2018Map] = React.useState(false);
   const [mapData, setMapData] = React.useState(null);
   const [hoverInfo, setHoverInfo] = React.useState(null);
 
@@ -191,30 +177,28 @@ const MarginsMap = () => {
       attributionControl={false}
     >
       <Source id="election-margins-data" type="geojson" data={mapData}>
-        <Layer {...getLayerStyle(isTurnoutMap)} />
-        <Layer {...getHoverStyle(isTurnoutMap)} filter={filter} />
+        <Layer {...getLayerStyle()} />
+        <Layer {...getHoverStyle()} filter={filter} />
       </Source>
 
       {hoverInfo && hoverInfo.districtData && (
-        <MapPopup hoverInfo={hoverInfo} isTurnoutMap={isTurnoutMap} />
+        <MapPopup hoverInfo={hoverInfo} />
       )}
 
       {/* MuiFormControlLabel */}
       <FormGroup
-        className={
-          isTurnoutMap ? "turnout-map-selected" : "margins-map-selected"
-        }
+        className={is2018Map ? "turnout-map-selected" : "margins-map-selected"}
       >
-        <span>Turnout</span>
+        <span>2018</span>
         <FormControlLabel
           control={
             <Switch
-              checked={!isTurnoutMap}
-              onChange={() => setIsTurnoutMap(!isTurnoutMap)}
+              checked={!is2018Map}
+              onChange={() => setIs2018Map(!is2018Map)}
               color="default"
             />
           }
-          label="Who won"
+          label="2022"
           aria-label="Select map to show"
         />
       </FormGroup>
@@ -225,7 +209,7 @@ const MarginsMap = () => {
       <SearchBar mapboxAccessToken={MAPBOX_TOKEN} position="top-left" />
       <Attribution />
 
-      <Legend isTurnoutMap={isTurnoutMap} />
+      <Legend is2018Map={is2018Map} />
     </Map>
   ) : (
     <div className="loading-screen">
