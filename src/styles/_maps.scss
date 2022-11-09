@@ -1,0 +1,291 @@
+.map-container {
+  position: relative;
+}
+
+.map {
+  width: 100%;
+  height: 0;
+  padding: 0 0 100% 0;
+
+  @media screen and (min-width: 730px) {
+    width: 100%;
+    height: 730px;
+    padding: 0;
+  }
+}
+
+.map-overlay {
+  position: absolute;
+  bottom: 10px;
+  right: 10px;
+  width: 180px;
+  background-color: #fff;
+  padding: 10px 10px;
+  z-index: 1;
+
+  h1 {
+    font-size: 22px;
+  }
+
+  .chart-key-positive,
+  .chart-key-negative,
+  .chart-key-mixed {
+    display: none;
+  }
+
+  &.positive .chart-key-positive,
+  &.negative .chart-key-negative,
+  &.mixed .chart-key-mixed {
+    display: block;
+  }
+}
+
+.slider-legend {
+  width: 100%;
+  height: 35px;
+
+  text {
+    @include lightface();
+    font-size: 12px;
+  }
+
+  svg image {
+    opacity: 0.75;
+  }
+
+  .domain {
+    display: none;
+  }
+}
+
+.slider-legend-title {
+  margin: 0 2px 8px 2px;
+  text-align: center;
+  @include medface();
+  font-size: 12px;
+}
+
+.map-overlay.mixed .slider-legend-title {
+  margin-bottom: 0;
+}
+
+.slider-legend-labels {
+  margin: 0;
+  text-align: center;
+  @include bookface();
+  font-size: 12px;
+  display: none;
+
+  .label-left,
+  .label-right {
+    flex: 1;
+    margin: 4px 0;
+  }
+  .label-left {
+    text-align: left;
+  }
+  .label-right {
+    text-align: right;
+  }
+}
+
+.map-overlay.mixed .slider-legend-labels {
+  display: flex;
+}
+
+body {
+  background-color: transparent;
+}
+
+.chart-title {
+  font-size: 22px;
+  @include boldface();
+  margin: 0;
+  margin-bottom: 8px;
+}
+
+.chart-note {
+  @include lightface();
+  font-size: 12px;
+  color: #000;
+  margin: 2px 0;
+  display: block;
+
+  p {
+    margin: 4px 0;
+  }
+}
+
+.chart-dek {
+  @include bookface();
+  font-size: 14px;
+  margin: 8px auto;
+  color: #333333;
+  max-width: 700px;
+}
+
+.chart-control {
+  @include bookface();
+  font-size: 14px;
+  margin: 8px 0;
+}
+
+.change-select {
+  vertical-align: middle;
+  width: 100px;
+}
+
+.chart-key {
+  padding: 0;
+  margin: 0;
+  font-size: 12px;
+  display: block;
+  @include lightface();
+  max-width: 400px;
+}
+
+@media screen and (min-width: 730px) {
+  .chart-header {
+    text-align: center;
+  }
+
+  .chart-key {
+    margin: 0 auto;
+  }
+}
+
+.key-instructions {
+  font-size: 14px;
+  color: #666;
+  @include lightface();
+  margin: 8px 0;
+
+  .info-icon {
+    vertical-align: middle;
+    width: 12px;
+  }
+
+  &.key-instructions-desktop {
+    display: none;
+  }
+
+  @media (min-width: 440px) {
+    &.key-instructions-mobile {
+      display: none;
+    }
+    &.key-instructions-desktop {
+      display: block;
+    }
+  }
+}
+
+.results {
+  margin: 5px 0 0 0;
+  border-collapse: collapse;
+
+  .number {
+    text-align: right;
+  }
+
+  th {
+    @include bookface();
+    border-bottom: 1px solid #dddddd;
+  }
+
+  td {
+    @include lightface();
+
+    &:last-child {
+      @include bookface();
+    }
+  }
+
+  th,
+  td {
+    padding: 4px;
+    font-size: 11px;
+    line-height: 1.2em;
+
+    &:first-child {
+      padding-left: 0;
+    }
+    &:last-child {
+      padding-right: 0;
+    }
+  }
+
+  tbody tr:not(:last-child) td {
+    border-bottom: 1px solid #dddddd;
+  }
+}
+
+.results-note {
+  @include bookface();
+  font-size: 10px;
+  color: #999;
+}
+
+.mapboxgl-popup {
+  z-index: 1;
+}
+
+.popup-content {
+  font-family: $sans;
+  max-width: 200px;
+  text-align: left;
+  cursor: none;
+
+  h3 {
+    font-size: 12px;
+    margin: 0 0 4px 0;
+    line-height: 1.4em;
+  }
+
+  h4 {
+    margin-bottom: 0;
+    margin: 0 0 4px 0;
+    line-height: 1rem;
+  }
+
+  p {
+    font-size: 12px;
+    margin: 0;
+    line-height: 1.2em;
+  }
+
+  ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+}
+
+.group-selection-buttons {
+  margin-bottom: 10px;
+
+  button {
+    @include bookface();
+    font-size: 14px;
+    width: auto;
+    border: 1px solid #666;
+    border-radius: 5px;
+    padding: 5px 10px;
+    margin: 5px 5px 5px 0;
+    background: #fff;
+    cursor: pointer;
+
+    &:hover {
+      background: #eee;
+    }
+
+    &.active,
+    &.active:hover {
+      background: #0c71fa;
+      color: #fff;
+    }
+
+    &:last-child {
+      margin-right: 0;
+    }
+  }
+}

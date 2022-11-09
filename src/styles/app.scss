@@ -1,0 +1,191 @@
+// RESET
+// Smooths out the rough edges across browsers
+@import "./defaults/normalize";
+
+// VARIABLES
+// Reusable settings
+@import "./_colors";
+@import "./_fonts";
+@import "./_maps";
+
+// OTHER DEFAULT STYLES
+// Smooths out the rough edges across browsers
+@import "./defaults/article";
+@import "./defaults/dataviz";
+
+// OTHER CUSTOM STYLES
+
+// YOUR CODE
+// Starting writing your stuff below here
+
+// Disable double-tap to zoom on touch devices
+body {
+  touch-action: manipulation;
+}
+
+.app {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  .copy-container {
+    width: 100%;
+    margin: 1rem 0rem;
+  }
+
+  .newsletter-container {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  // MUI Switch Overrides:
+  .MuiFormGroup-root {
+    display: block;
+    background-color: #fff;
+    box-shadow: 0 0 10px 2px rgb(0 0 0 / 10%);
+    position: absolute;
+    top: 70px;
+    left: 10px;
+    border-radius: 4px;
+    flex-direction: row;
+    padding-left: 1rem;
+
+    @media screen and (min-width: 740px) {
+      top: 55px;
+    }
+
+    span {
+      margin: 0rem;
+      font-family: $sans;
+      font-size: 0.85rem;
+      font-weight: 200;
+    }
+
+    &.turnout-map-selected > span {
+      font-weight: 400;
+    }
+
+    &.margins-map-selected .MuiTypography-root {
+      font-weight: 400;
+    }
+
+    .MuiSwitch-root {
+      margin-left: 0.65rem;
+    }
+
+    .MuiSwitch-thumb {
+      background-color: #bbb;
+    }
+  }
+
+  // MapBox Overrides:
+  .mapboxgl-ctrl-top-left {
+    max-width: 75%;
+  }
+  .mapboxgl-ctrl-geocoder {
+    font-family: $sans;
+    font-size: 0.875rem;
+    font-weight: 200;
+  }
+
+  .maplibregl-ctrl-bottom-left {
+    pointer-events: "all";
+    details.mapboxgl-ctrl-attrib {
+      padding: 2px 8px 2px 16px;
+      .maplibregl-ctrl-attrib-inner {
+        margin-left: 16px;
+        a {
+          color: $city-black;
+          text-decoration: none;
+          box-shadow: none;
+        }
+      }
+    }
+  }
+
+  // Loading Screen:
+  .loading-screen {
+    width: 100%;
+    height: 600px;
+    background-color: #dedddd;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    > div {
+      text-align: center;
+    }
+  }
+
+  // Waffle Chart:
+  .waffle-chart-container {
+    .title {
+      font: 900 1.375rem $sans;
+      color: $city-black;
+      margin-bottom: 0.25rem;
+    }
+
+    .description {
+      font-weight: 400;
+      font-size: 0.875rem;
+      font-family: $sans;
+      color: #333;
+      margin-bottom: 1rem;
+      height: fit-content;
+
+      b:first-child {
+        span:first-child {
+          color: $city-politics-red;
+        }
+        span:last-child {
+          color: $city-politics-blue;
+        }
+      }
+    }
+
+    .byline-content {
+      font-size: 10px;
+      color: #000;
+      font-weight: 300;
+      display: block;
+      margin-top: 4rem;
+      a {
+        color: #08c;
+        text-decoration: none;
+      }
+    }
+
+    .waffle-chart-headers {
+      display: flex;
+      justify-content: space-around;
+    }
+
+    .waffle-chart-section {
+      display: flex;
+      justify-content: space-between;
+
+      .waffle-chart-column {
+        width: 23%;
+        height: 400px;
+        margin-bottom: 1rem;
+        .waffle-chart-label {
+          width: 100%;
+          margin-top: 1rem;
+          text-align: center;
+        }
+        .waffle-chart-tooltip {
+          font-size: 0.75rem;
+          line-height: 1.2em;
+        }
+      }
+    }
+  }
+
+  // DataWrapper Charts
+
+  .datawrapper-embed {
+    margin: 1rem 0;
+    width: 100%;
+  }
+}
