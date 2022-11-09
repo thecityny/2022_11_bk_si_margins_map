@@ -127,7 +127,7 @@ const getHoverStyle = (isTurnoutMap) => ({
   },
 });
 
-const TurnoutMap = () => {
+const MarginsMap = () => {
   /**
    * Which map type are we showing? Margins map or voter turnout map?
    */
@@ -173,11 +173,11 @@ const TurnoutMap = () => {
     <Map
       mapLib={maplibregl}
       initialViewState={{
-        longitude: -73.977708344928,
-        latitude: 40.713323256573386,
-        zoom: 9.3,
+        longitude: -74.039708344928,
+        latitude: 40.613323256573386,
+        zoom: 10,
       }}
-      style={{ width: "100%", height: 600 }}
+      style={{ width: "100%", height: "100vh" }}
       mapStyle={MAPBOX_STYLE_URL}
       transformRequest={transformStyleRequest}
       onMouseMove={onHover}
@@ -237,4 +237,4 @@ const TurnoutMap = () => {
   );
 };
 
-export default TurnoutMap;
+export default MarginsMap;
