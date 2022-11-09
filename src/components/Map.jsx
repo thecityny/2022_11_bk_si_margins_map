@@ -118,11 +118,12 @@ const MarginsMap = () => {
    * Which map type are we showing? Margins map or voter turnout map?
    */
   const [is2018Map, setIs2018Map] = React.useState(false);
-  const [mapData, setMapData] = React.useState(null);
+  const [mapData22, setMapData22] = React.useState(null);
+  const [mapData18, setMapData18] = React.useState(null);
   const [hoverInfo, setHoverInfo] = React.useState(null);
 
   React.useEffect(() => {
-    fetch("./data/eds.json", {
+    fetch("./data/2022/eds.json", {
       headers: {
         "Content-Type": "application/json",
         Accept: "application/json",
@@ -130,10 +131,23 @@ const MarginsMap = () => {
     })
       .then((resp) => resp.json())
       .then((json) => {
-        setMapData(feature(json, json.objects.eds));
-        console.log("Election data loaded");
+        setMapData22(feature(json, json.objects.eds));
+        console.log("2022 Election data loaded");
       })
-      .catch((err) => console.error("Could not load data", err)); // eslint-disable-line
+      .catch((err) => console.error("Could not load 2022 data", err)); // eslint-disable-line
+
+    fetch("./data/2018/eds.json", {
+      headers: {
+        "Content-Type": "application/json",
+        Accept: "application/json",
+      },
+    })
+      .then((resp) => resp.json())
+      .then((json) => {
+        setMapData18(feature(json, json.objects.eds));
+        console.log("2018 Election data loaded");
+      })
+      .catch((err) => console.error("Could not load 2018 data", err)); // eslint-disable-line
   }, []);
 
   const onHover = React.useCallback((event) => {
@@ -155,7 +169,7 @@ const MarginsMap = () => {
 
   const onMouseLeave = React.useCallback(() => setHoverInfo(null), []);
 
-  return !!mapData ? (
+  return !!mapData22 ? (
     <Map
       mapLib={maplibregl}
       initialViewState={{
@@ -176,7 +190,11 @@ const MarginsMap = () => {
       mapboxAccessToken={MAPBOX_TOKEN}
       attributionControl={false}
     >
-      <Source id="election-margins-data" type="geojson" data={mapData}>
+      <Source
+        id="election-margins-data"
+        type="geojson"
+        data={is2018Map ? mapData18 : mapData22}
+      >
         <Layer {...getLayerStyle()} />
         <Layer {...getHoverStyle()} filter={filter} />
       </Source>
