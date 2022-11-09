@@ -177,7 +177,7 @@ const MarginsMap = () => {
         latitude: 40.613323256573386,
         zoom: 10,
       }}
-      style={{ width: "100%", height: "100vh" }}
+      style={{ width: "100%", height: "640px" }}
       mapStyle={MAPBOX_STYLE_URL}
       transformRequest={transformStyleRequest}
       onMouseMove={onHover}
