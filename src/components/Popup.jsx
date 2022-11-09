@@ -1,10 +1,9 @@
 import { Popup } from "react-map-gl";
 
-const formatNtaName = (nta) => nta.replace("-", " / ");
 const formatElectionDistrict = (ed) =>
   ed.toString().slice(0, 2) + "/" + ed.toString().slice(2, 5);
 
-export const MapPopup = ({ hoverInfo }) => {
+export const MapPopup = ({ hoverInfo, is2018Map }) => {
   const { latitude, longitude, districtData } = hoverInfo;
   const totalVotes = districtData.dem + districtData.rep + districtData.other;
   return (
@@ -46,7 +45,7 @@ export const MapPopup = ({ hoverInfo }) => {
                 </thead>
                 <tbody>
                   <tr>
-                    <td>Kathy Hochul</td>
+                    <td>{is2018Map ? "Andrew Cuomo" : "Kathy Hochul"}</td>
                     <td>DEM</td>
                     <td className="number">{districtData.dem}</td>
                     <td className="number">
@@ -63,7 +62,7 @@ export const MapPopup = ({ hoverInfo }) => {
                     </td>
                   </tr>
                   <tr>
-                    <td>Lee Zeldin</td>
+                    <td>{is2018Map ? "Marc Molinaro" : "Lee Zeldin"}</td>
                     <td>REP</td>
                     <td className="number">{districtData.rep}</td>
                     <td className="number">

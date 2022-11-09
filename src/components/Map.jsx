@@ -200,7 +200,7 @@ const MarginsMap = () => {
       </Source>
 
       {hoverInfo && hoverInfo.districtData && (
-        <MapPopup hoverInfo={hoverInfo} />
+        <MapPopup hoverInfo={hoverInfo} is2018Map={is2018Map} />
       )}
 
       {/* MuiFormControlLabel */}
